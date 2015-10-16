@@ -4,48 +4,10 @@ html {
 
 body {
 	font-family: $main-font;
-	font-size: 100%;
 	background-color: $light-bg-color;
 }
 
-
-h1, h2, h3, h4, h5, h6 {
-    line-height: 1.4;
-}
-
-h1 {
-    font-size: 2.125rem;
-}
-
-h2 {
-    font-size: 1.6875rem;
-    padding-bottom: .5em;
-}
-
-h3 {
-    font-size: 1.375rem;
-}
-
-h4 {
-    font-size: 1.125rem;
-}
-
-h5 {
-    font-size: 1.125rem;
-}
-
-h6 {
-    font-size: 1rem;
-}
-
-p {
-	font-size: 1.5rem;
-	line-height: 1.8;
-	margin-bottom: 1.25rem;
-}
-
 a {	
-	position: relative;
 	color: $primary-color;
 	text-decoration: none;
 	transition: 0.3s;
@@ -58,34 +20,4 @@ a {
 		color: $primary-color;
 		text-decoration: none;
 	}
-}
-
-hr {
-	color: #dddddd;
-	margin: 8rem 0;
-}
-
-hr:last-child {
-	display: none;
-}
-
-img {
-	display: block;
-	max-width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-
-.big-spacer {
-    padding-top: 7em;
-    padding-bottom: 7em;
-}
-
-.big-spacer-top {
-    padding-top: 7em;
-}
-
-.off-white {
-	background-color: $off-white;
 }

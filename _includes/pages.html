@@ -1,0 +1,12 @@
+{# Pages #}
+<div id="pages">
+	{% for page in site.pages %}
+		{% if page.position %}
+			<div class="page {{ page.title | downcase }}" id="{{ page.title | downcase }}-page">
+				<div class="wrap">
+					{{ page.content }}
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+</div>
