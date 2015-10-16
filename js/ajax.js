@@ -24,7 +24,7 @@ jQuery(document).ready(function($) {
 
             // Replace the content of the main container (.content)
             // If you're using another div, you should change the selector
-            $('#pages').html($(data).find('#pages'));
+            console.log(State.url);
             $("#about-page").addClass("active");
 
             // If you're using Google analytics, make sure the pageview is registered!
