@@ -13,19 +13,78 @@ jQuery(document).ready(function($) {
         History.pushState({}, "", this.pathname);
     });
 
+    var re = /portfolio-b\/([\w\-\.]+)\/?$/;
+    var page = re.exec(location.pathname);
+
+    if (page) {
+    	$("#one").addClass("active");
+    	$("#bg-"+page[1]).addClass("active-effect");
+		$(".site-header").css({ top: '0px' });
+		$("#top-nav").delay(1300).fadeIn(10);
+    }
+
     // Catch all History stateChange events
     History.Adapter.bind(window, 'statechange', function(){
-        var State = History.getState();
+        var State = History.getState(); 
 
         // Load the new state's URL via an Ajax Call
         $.get(State.url, function(data){
             // Replace the "<title>" tag's content
             document.title = $(data).find("title").text();
 
+            // Get the pathname
+            var re = /portfolio-b\/([\w\-\.]+)\/?$/;
+           	var page = re.exec(State.url);
+           	
+           	         
+
+           	// Put the new content into hidden div
+            $('#two').html($(data).find('#one').html());
+
+            if (page) { // If valid page or not homepage
+
+            	// If a page is active already then toggle active and hidden divs
+	            if ($("#one").hasClass("active")) {
+	            	$("#one").toggleClass("active");
+	            	$("#two").toggleClass("active");
+	            }
+	            else {
+	            	$("#two").addClass("active");
+	            }
+
+	            // Swap the div ids 
+	            $("#one").attr( "id", "temp" );
+	            $("#two").attr( "id", "one" );
+	            $("#temp").attr( "id", "two" );
+	            
+	            // Transition effects
+	            $(".bg").removeClass("active-effect");
+	            $("#bg-"+page[1]).addClass("active-effect");
+			    $(".site-header").css({ top: '0px' });
+			    $("#top-nav").delay(1300).fadeIn(10);
+
+			}
+
+			else {
+				// If homepage or invalid page
+				$(".site-header").css({ top: '52px' })
+			    $(".page").removeClass("active")
+			    $(".bg").removeClass("active-effect")
+			    $("#top-nav").fadeOut(10)
+			}
+
+            // $("#two").addClass("active")
+            // $("#one").addClass("hidden")
+
+
             // Replace the content of the main container (.content)
             // If you're using another div, you should change the selector
-            console.log(State.url);
-            $("#about-page").addClass("active");
+      //       $('#two').html($(data).find('#one'));
+      //       $("#bg").addClass("active-effect");
+		    // $(".site-header").css({ top: '0px' });
+		    // $(".page").removeClass("active");
+		    // $("#one").addClass("active");
+		    // $("#top-nav").delay(1300).fadeIn(10);
 
             // If you're using Google analytics, make sure the pageview is registered!
             // ga('send', 'pageview', {
