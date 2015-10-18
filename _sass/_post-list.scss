@@ -1,0 +1,31 @@
+.post-list {
+
+	.post-title {
+		text-align: center;
+		font-size: 2.5rem;
+	}
+
+	a {	
+	color: $dark-font-color;
+	text-decoration: none;
+	transition: 0.3s;
+
+		&, &:visited {
+			color: $dark-font-color;
+		}
+
+		&:hover, &:active {
+			color: $primary-color;
+			text-decoration: none;
+		}
+
+		
+
+	}
+
+	.post-meta {
+		text-align: center;
+		font-size: 1rem;
+	}
+
+}

@@ -1,62 +1,80 @@
 ---
 ---
 $ ->
-  $('nav .about').hover ->
-    $("#bg-about").toggleClass("hover-effect")
-    $("#overlay").css( "background-color", "#26A65B" )
 
-  $('nav .work').hover ->
-    $("#bg-work").toggleClass("hover-effect")
+  #Get the name of the page
+  re = /portfolio-b\/([\w\-\.]+)\/?$/
+  page = re.exec(location.pathname)
 
-  $('nav .blog').hover ->
-    $("#bg-blog").toggleClass("hover-effect")
+  #Make sure content is visible if page is not the homepage
+  if page
+    $('#one').addClass 'active'
+    $('#bg-' + page[1]).addClass 'active-effect'
+    $('.site-header').css top: '0px'
+    $('#home-nav').css display: 'none'
+    $('#top-nav').delay(1300).fadeIn 10
 
-  $('nav .contact').hover ->
-    $("#bg-contact").toggleClass("hover-effect")
+  #Background hover effects      
+  {% for page in site.pages %}
+    {% if (page.class) %}
+    $("nav .{{ page.title | downcase }}").hover ->
+      $("#bg-{{ page.title | downcase }}").toggleClass("hover-effect")
+      $("body").toggleClass("{{ page.class }}")
+    {% endif %}
+  {% endfor %}
 
 
-#   # $('nav .about').click (ev) ->
-#   #   ev.preventDefault()
-#   #   $("#bg").addClass("active-effect")
-#   #   $(".site-header").css({ top: '0px' })
-#   #   $(".page").removeClass("active")
-#   #   $("#one").addClass("active")
-#   #   $("#top-nav").delay(1300).fadeIn(10)
+  #Ajax page load, modified from http://www.builtinbruges.com/2014/08/using-ajax-content-in-jekyll-updated-for-universal-analytics/
+  siteUrl = 'http://'+(document.location.hostname||document.location.host)
+
+  $(document).delegate 'a[href^="/"],a[href^="' + siteUrl + '"]', 'click', (e) ->
+    e.preventDefault()
+    History.pushState {}, '', @pathname
+
+  # Catch all History stateChange events
+  History.Adapter.bind window, 'statechange', ->
+    State = History.getState()
+    # Load the new state's URL via an Ajax Call
+    $.get State.url, (data) ->
+      # Replace the "<title>" tag's content
+      document.title = $(data).find('title').text()
+      # Get the pathname
+      # re = /portfolio-b\/([\w\-\.]+)\/?$/
+      re = /portfolio-b\/(.+)/
+      page = re.exec(State.url)
+      
+      # Put the new content into hidden div
+      $('#two').html $(data).find('#one').html()
+
+      if page
+        # If valid page or not homepage
+        # If a page is active already then toggle active and hidden divs
+        if $('#one').hasClass('active')
+          $('#one').toggleClass 'active'
+          $('#two').toggleClass 'active'
+        else
+          $('#two').addClass 'active'
+        # Swap the div ids 
+        $('#one').attr 'id', 'temp'
+        $('#two').attr 'id', 'one'
+        $('#temp').attr 'id', 'two'
+        # Transition effects
+        $('.bg').removeClass 'active-effect'
+        # $('#bg-' + page[1]).addClass 'active-effect'
+        $('.site-header').css top: '0px'
+        $('#home-nav').fadeOut 10
+        $('#top-nav').delay(1300).fadeIn 10
+        $("body").className = ""
+        $("body").addClass page
+      else
+        # If homepage or invalid page
+        $('.site-header').css top: '52px'
+        $('.page').removeClass 'active'
+        $('.bg').removeClass 'active-effect'
+        $('#home-nav').delay(900).fadeIn 10
+        $('#top-nav').fadeOut 10
+        $("body").className = ""
+        $("body").addClass "home"
     
-
-#   $('nav .work').click (ev) ->
-#     ev.preventDefault()
-#     $("#bg3").addClass("active-effect")
-#     $(".site-header").css({ top: '0px' })
-#     $(".page").removeClass("active")
-#     $("#work-page").addClass("active")
-
-#   $('nav .blog').click (ev) ->
-#     ev.preventDefault()
-#     $("#bg4").addClass("active-effect")
-#     $(".site-header").css({ top: '0px' })
-#     $(".page").removeClass("active")
-#     $("#blog-page").addClass("active")
-
-#   $('nav .contact').click (ev) ->
-#     ev.preventDefault()
-#     $("#bg5").addClass("active-effect")
-#     $(".site-header").css({ top: '0px' })
-#     $(".page").removeClass("active")
-#     $("#contact-page").addClass("active")
-
-
-
-#   $('.home-link').click (ev) ->
-#     ev.preventDefault()
-#     $(".site-header").css({ top: '52px' })
-#     $(".page").removeClass("active")
-#     $(".bg").removeClass("active-effect")
-#     $("#top-nav").fadeOut(10)
-    
-
-
-
-
-    
-
+  
+  

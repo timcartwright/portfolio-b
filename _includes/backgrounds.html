@@ -1,22 +1,14 @@
+
 <div class="bg bg-default" id="bg-default">
   
 </div>
 
-<div class="bg bg-about" id="bg-about">
-  
-</div>
+{% for page in site.pages %}
+	{% if page.position %}
+		<div class="bg bg-{{ page.title | downcase }}" id="bg-{{ page.title | downcase }}"></div>
+	{% endif %}
+{% endfor %}
 
-<div class="bg bg-work" id="bg-work">
-  
-</div>
-
-<div class="bg bg-blog" id="bg-blog">
-  
-</div>
-
-<div class="bg bg-contact" id="bg-contact">
-  
-</div>
 
 <div id="overlay" class="bcolour">
   

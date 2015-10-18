@@ -2,6 +2,8 @@ body {
 	overflow: hidden;
 }
 
+
+
 .wrapper {
 	height: 100vh;
 	width: 100%;
@@ -27,17 +29,23 @@ body {
 
 	h1 {
 		color: $white;
-		font-size: 2em;
-		text-transform: uppercase;
+		font-size: 1.333rem;
+		text-transform: lowercase;
 		margin: 0;
+		letter-spacing: 1.5px;
 	}
 
 	h3 {
 		color: $white;
-		font-size: 1.3333em;
+		font-size: 1rem;
 		margin: 0;
-		line-height: 0.7;
+		line-height: 1;
 		font-weight: normal;
+		text-transform: lowercase;
+	}
+
+	a h1, a h3 {
+		opacity: 0.7;
 	}
 }
 
@@ -51,12 +59,37 @@ body {
 
 	nav ul li {
 		font-size: 1em;
-		line-height: 3.3;
+		line-height: 0.875;
+
+		a {
+			opacity: 0.7;
+
+			&:hover, &:active {
+				opacity: 1;
+			}
+
+			
+		}
 	}
 }
 
-.social-buttons {
+#social-buttons {
+
 	float: right;
+
+	ul li {
+		padding-left: 0;
+		line-height: 2;
+
+		a i {
+			opacity: 0.7;
+
+			&:hover, &:active {
+				opacity: 1;
+			}
+
+		}
+	}
 	
 }
 
@@ -79,7 +112,7 @@ body {
 	z-index: 1;
 }
 
-.main-nav {
+#home-nav {
 	margin: 0 auto;
 	max-width: 1120px;
 	text-align: center;
@@ -96,7 +129,8 @@ nav {
 			display: inline-block;
 			padding: 0 1em;
 			font-size: 1.333em;
-			line-height: 2.5;
+			line-height: 2;
+			text-transform: lowercase;
 
 			a {
 
@@ -106,6 +140,10 @@ nav {
 			}
 		}
 	}
+}
+
+i {
+	color: $white;
 }
 
 .bg {
@@ -130,7 +168,7 @@ nav {
 	background-image: url("../images/laptop-jeans.jpg");
 }
 
-.bg3-work {
+.bg-work {
 	opacity: 0;
 	background-image: url("../images/code.jpg");
 }
@@ -168,9 +206,9 @@ nav {
 .page, #one, #two {
 	width: 100%;
 	height: 100vh;
-	padding-top: 2em;
+	padding-top: 4em;
 	z-index: 5;
-	background-color: rgba(255,255,255,0.8);
+	background-color: rgba(255,255,255,0.85);
 	position: absolute;
 	top: 100%;
 	transition: 1s;
@@ -182,7 +220,7 @@ nav {
 
 
 .active {
-	top: 63px !important;
+	top: 56px !important;
 	// bottom: 70px;
 }
 
@@ -199,4 +237,20 @@ nav {
 
 #two {
 
+}
+
+hr {
+	color: #dddddd;
+	margin: 8rem 0;
+}
+
+hr:last-child {
+	display: none;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
 }
