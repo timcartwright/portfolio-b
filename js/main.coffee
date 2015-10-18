@@ -15,13 +15,13 @@ $ ->
     $('#top-nav').delay(1300).fadeIn 10
 
   #Background hover effects      
-  {% for page in site.pages %}
-    {% if (page.class) %}
-    $("nav .{{ page.title | downcase }}").hover ->
-      $("#bg-{{ page.title | downcase }}").toggleClass("hover-effect")
-      $("body").toggleClass("{{ page.class }}")
-    {% endif %}
-  {% endfor %}
+{% for page in site.pages %}
+  {% if (page.class) %}
+  $("nav .{{ page.title | downcase }}").hover ->
+    $("#bg-{{ page.title | downcase }}").toggleClass("hover-effect")
+    $("body").toggleClass("{{ page.class }}")
+  {% endif %}
+{% endfor %}
 
 
   #Ajax page load, modified from http://www.builtinbruges.com/2014/08/using-ajax-content-in-jekyll-updated-for-universal-analytics/
@@ -39,10 +39,8 @@ $ ->
       # Replace the "<title>" tag's content
       document.title = $(data).find('title').text()
       # Get the pathname
-      # re = /portfolio-b\/([\w\-\.]+)\/?$/
-      re = /portfolio-b\/(.+)/
+      re = /portfolio-b\/([\w\-\.]+)\/?$/
       page = re.exec(State.url)
-      
       # Put the new content into hidden div
       $('#two').html $(data).find('#one').html()
 
@@ -60,7 +58,7 @@ $ ->
         $('#temp').attr 'id', 'two'
         # Transition effects
         $('.bg').removeClass 'active-effect'
-        # $('#bg-' + page[1]).addClass 'active-effect'
+        $('#bg-' + page[1]).addClass 'active-effect'
         $('.site-header').css top: '0px'
         $('#home-nav').fadeOut 10
         $('#top-nav').delay(1300).fadeIn 10
