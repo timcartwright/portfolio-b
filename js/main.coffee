@@ -9,26 +9,17 @@ $ ->
   #Make sure content is visible if page is not the homepage
   if page
     if (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/")
-      console.log(page[1])
-      # Put the new content into hidden div
-      # $('#three').html $(data).find('#one').html()
+      # Put the new content into hidden div     
       $('#three').html $('#one').html()
       $('#three').addClass 'active'
+
       $('#one').html ""
-      #Swap the div ids
-      
-      # $('#two').delay(800).queue (n) ->      
-      #   $('#one').attr 'id', 'temp'
-      #   $('#three').attr 'id', 'one'
-      #   $('#temp').attr 'id', 'three'
-      #   n()
-      # console.log(page[1])
     
-  $('#one').addClass 'active'
-  $('#bg-' + page[1]).addClass 'active-effect'
-  $('.site-header').css top: '0px'
-  $('#home-nav').css display: 'none'
-  $('#top-nav').delay(1300).fadeIn 10
+    $('#one').addClass 'active'
+    $('#bg-' + page[1]).addClass 'active-effect'
+    $('.site-header').css top: '0px'
+    $('#home-nav').css display: 'none'
+    $('#top-nav').delay(1300).fadeIn 10
 
     
 
@@ -62,25 +53,17 @@ $ ->
       
       if page # If valid page or not homepage
         console.log(page[1])
-        if (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/")
-          console.log(page[1])
+        if (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/") #if blog post or work item
+      
           # Put the new content into hidden div
           $('#three').html $(data).find('#one').html()
           $('#three').addClass 'active'
-          #Clear contents of previous page
+          #Clear contents of previous page after the transition effect
           $('#one').delay(800).queue (n) ->
             $(this).html("")
             n()
           
-          #Swap the div ids
-          
-          # $('#two').delay(800).queue (n) ->      
-          #   $('#one').attr 'id', 'temp'
-          #   $('#three').attr 'id', 'one'
-          #   $('#temp').attr 'id', 'three'
-          #   n()
-          # console.log(page[1])
-        else if (page[1] == "work" || "blog") && $('#three').hasClass('active')
+        else if (page[1] == "work" || "blog") && $('#three').hasClass('active') #if moving the blog/work index from post/work item
           $('#one').html $(data).find('#one').html()
           $('#three').removeClass 'active'
 
@@ -89,8 +72,7 @@ $ ->
           # Put the new content into hidden div
           $('#two').html $(data).find('#one').html()
           
-          # If a page is active already then toggle active and hidden divs
-          if $('#one').hasClass('active')
+          if $('#one').hasClass('active') # If a page is active already then toggle active and hidden divs
             $('#one').toggleClass 'active'
             $('#two').toggleClass 'active'
           else
