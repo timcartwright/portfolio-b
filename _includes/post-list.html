@@ -1,10 +1,10 @@
 <div class="post-list">
   {% for post in site.posts %}
-      <h3 class="post-title">
+      <h2 class="post-title">
         <a href="{{ post.url | prepend: site.baseurl }}">
             {{ post.title }}
          </a>
-      </h3>
+      </h2>
       <p class="post-meta">
         {{ post.date | date: '%-d %B, %Y' }}
       </p>
@@ -15,9 +15,9 @@
           {% endif %}
         </a>
       </p>
-      <p class="post-excerpt">
+      <div class="post-excerpt">
         {{ post.excerpt }}
-      </p>
+      </div>
    <hr>
   {% endfor %}
 </div>

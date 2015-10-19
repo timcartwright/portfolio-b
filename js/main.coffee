@@ -3,7 +3,7 @@
 $ ->
 
   #Get the name of the page
-  re = /portfolio-b\/([\w\-\.]+)\/?$/
+  re = new RegExp("{{ site.baseurl }}\\/?([\\w\\-\\.]+)\\/?")
   page = re.exec(location.pathname)
 
   #Make sure content is visible if page is not the homepage
@@ -38,12 +38,12 @@ $ ->
     $.get State.url, (data) ->
       # Replace the "<title>" tag's content
       document.title = $(data).find('title').text()
-      # Get the pathname
-      re = /portfolio-b\/([\w\-\.]+)\/?$/
-      page = re.exec(State.url)
+      # Get the first element of the pathname
+      re = new RegExp("{{ site.baseurl }}\\/?([\\w\\-\\.]+)\\/?")
+      page = re.exec(location.pathname)
       # Put the new content into hidden div
       $('#two').html $(data).find('#one').html()
-
+      console.log(page)
       if page
         # If valid page or not homepage
         # If a page is active already then toggle active and hidden divs
@@ -64,6 +64,10 @@ $ ->
         $('#top-nav').delay(1300).fadeIn 10
         $("body").className = ""
         $("body").addClass page
+        #Clear contents of previous page
+        $('#two').delay(800).queue (n) ->
+          $(this).html("")
+          n()
       else
         # If homepage or invalid page
         $('.site-header').css top: '52px'
@@ -73,6 +77,12 @@ $ ->
         $('#top-nav').fadeOut 10
         $("body").className = ""
         $("body").addClass "home"
+        #Clear contents of previous page
+        $('#two').delay(800).queue (n) ->
+          $(this).html("")
+          $('#one').html("")
+          n()
+
     
   
   
