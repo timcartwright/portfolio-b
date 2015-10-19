@@ -1,0 +1,20 @@
+---
+layout: home
+---
+
+<section id="posts">
+  <div class="wrap big-spacer">
+      <article class="post-content">
+        <header class="post-header">
+        </header>
+        <p>
+            {% if page.image %}
+                  <img class="featured-image" src="{{ site.baseurl }}/images/{{ page.image }}" />
+            {% endif %}
+        </p>
+
+        {{ content }}
+      
+      </article>
+  </div>
+</section>
