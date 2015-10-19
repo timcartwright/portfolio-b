@@ -9,7 +9,7 @@ baseurl: "/portfolio-b/" # the subpath of your site, e.g. /blog/
 url: "http://yourdomain.com" # the base hostname & protocol for your site
 twitter_username: jekyllrb
 github_username:  jekyll
-permalink: blog/:categories/:title
+permalink: :categories/:title
 
 # Build settings
 markdown: kramdown
