@@ -1,0 +1,44 @@
+.teasers {
+	max-width: 1000px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.work-teaser {
+	display: inline-block;
+	width: 45%;
+	text-align: center;
+
+		&:nth-child(odd) {
+			margin-right: 10%;
+		}
+
+		img {
+			border: 10px solid $mid-bg-color;
+			transition: 0.3s;
+
+			&:hover {
+				border: 10px solid $primary-color;
+			}
+		}
+
+		h3 {
+			font-size: 1.333rem;
+		}
+
+		a {	
+		color: $dark-font-color;
+		text-decoration: none;
+		transition: 0.3s;
+
+			&, &:visited {
+				color: $dark-font-color;
+			}
+
+			&:hover, &:active {
+				color: $primary-color;
+				text-decoration: none;
+			}
+
+		}
+}

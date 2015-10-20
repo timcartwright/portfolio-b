@@ -1,0 +1,47 @@
+.bg {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	transition: 0.7s;
+	background-position: 50% 50%;
+	background-size: cover;
+}
+
+.bg-about {
+	opacity: 0;
+	background-image: url("../images/laptop.jpg");	
+}
+
+.bg-default {
+	opacity: 1;
+	background-image: url("../images/laptop-jeans.jpg");
+}
+
+.bg-work {
+	opacity: 0;
+	background-image: url("../images/code.jpg");
+}
+
+.bg-blog {
+	opacity: 0;
+	background-image: url("../images/desktop.jpg");
+}
+
+.bg-contact {
+	opacity: 0;
+	background-image: url("../images/code.jpg");
+}
+
+.bcolour {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	opacity: 0.6;
+	background-color: #F9690E;
+}

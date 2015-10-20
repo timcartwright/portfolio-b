@@ -1,0 +1,76 @@
+.site-header {
+	position: relative;
+	top: 52px;
+	transition: 0.7s;
+	margin: 5px auto;
+}
+
+.site-title {
+	float: left;
+
+
+	h1 {
+		color: $white;
+		font-size: 1.333rem;
+		text-transform: lowercase;
+		margin: 0;
+		
+	}
+
+	h3 {
+		color: $white;
+		font-size: 1rem;
+		margin: 0;
+		line-height: 1;
+		font-weight: normal;
+		text-transform: lowercase;
+	}
+
+	a h1, a h3 {
+		opacity: 0.7;
+	}
+}
+
+#top-nav {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 50px;
+	display: none;
+
+	nav ul li {
+		font-size: 1em;
+		line-height: 0.875;
+
+		a {
+			opacity: 0.7;
+
+			&:hover, &:active {
+				opacity: 1;
+			}
+
+			
+		}
+	}
+}
+
+#social-buttons {
+
+	float: right;
+
+	ul li {
+		padding-left: 0;
+		line-height: 2;
+
+		a i {
+			opacity: 0.7;
+
+			&:hover, &:active {
+				opacity: 1;
+			}
+
+		}
+	}
+	
+}
