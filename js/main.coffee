@@ -2,20 +2,22 @@
 ---
 $ ->
 
-  page_name = ->
-    #Get the name of the page
+  page_name = -> #Get the name of the page
     re = new RegExp("{{ site.baseurl }}\\/?([\\w\\-\\.]+)\\/?")
     return re.exec(location.pathname)
 
-  swap_div_ids = (a,b) ->
+  swap_div_ids = (a,b) -> #swap the ids of two divs
     $("#"+a).attr 'id', 'temp'
     $("#"+b).attr 'id', a
     $('#temp').attr 'id', b
+
+  is_post = (page) ->
+    (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/")
     
   #Make sure content is visible if page is not the homepage
   page = page_name()
   if page
-    if (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/")
+    if is_post(page)
       # Put the new content into hidden div     
       $('#three').html $('#one').html()
       $('#three').addClass 'active'
@@ -58,7 +60,7 @@ $ ->
       page = page_name()
       if page # If valid page or not homepage
         console.log(page[1])
-        if (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/") #if blog post or work item
+        if is_post(page)
       
           # Put the new content into hidden div
           $('#three').html $(data).find('#one').html()
