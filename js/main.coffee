@@ -19,12 +19,15 @@ $ ->
     $(this).html("")
     n()
 
-  transition_for_normal_page = ->
+  transition_to_normal_page = ->
     $('#one').addClass 'active'
     $('#bg-' + page[1]).addClass 'active-effect'
     $('.site-header').css top: '0px'
-    $('#home-nav').css display: 'none'
+    $('#home-nav').fadeOut 10
     $('#top-nav').delay(1300).fadeIn 10
+    $('.bg').removeClass 'active-effect'
+    $("body").className = ""
+    $("body").addClass page
     
   #Make sure content is visible if page is not the homepage
   page = page_name()
@@ -35,7 +38,7 @@ $ ->
       $('#three').addClass 'active'
       $('#one').html ""
      
-    transition_for_normal_page()
+    transition_to_normal_page()
 
     
 
@@ -76,7 +79,7 @@ $ ->
           empty_contents ('#one')
           
           
-        else if (page[1] == "work" || "blog") && $('#three').hasClass('active') #if moving the blog/work index from post/work item
+        else if (page[1] == "work" || "blog") && $('#three').hasClass('active') #if moving to the blog/work index from post/work item
           $('#one').html $(data).find('#one').html()
           $('#three').removeClass 'active'
 
@@ -93,13 +96,7 @@ $ ->
           # Swap the div ids 
           swap_div_ids('one', 'two')
           # Transition effects
-          $('.bg').removeClass 'active-effect'
-          $('#bg-' + page[1]).addClass 'active-effect'
-          $('.site-header').css top: '0px'
-          $('#home-nav').fadeOut 10
-          $('#top-nav').delay(1300).fadeIn 10
-          $("body").className = ""
-          $("body").addClass page
+          transition_to_normal_page()
           #Clear contents of previous page
           empty_contents ('#two')
       else
@@ -116,6 +113,10 @@ $ ->
           $(this).html("")
           $('#one').html("")
           n()
+
+
+
+    
 
     
   
