@@ -13,6 +13,11 @@ $ ->
 
   is_post = (page) ->
     (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/")
+
+  empty_contents = (element) -> #clear contents of element with delay
+    $(element).delay(800).queue (n) ->
+    $(this).html("")
+    n()
     
   #Make sure content is visible if page is not the homepage
   page = page_name()
@@ -59,16 +64,15 @@ $ ->
       
       page = page_name()
       if page # If valid page or not homepage
-        console.log(page[1])
+  
         if is_post(page)
       
           # Put the new content into hidden div
           $('#three').html $(data).find('#one').html()
           $('#three').addClass 'active'
           #Clear contents of previous page after the transition effect
-          $('#one').delay(800).queue (n) ->
-            $(this).html("")
-            n()
+          empty_contents ('#one')
+          
           
         else if (page[1] == "work" || "blog") && $('#three').hasClass('active') #if moving the blog/work index from post/work item
           $('#one').html $(data).find('#one').html()
@@ -95,9 +99,7 @@ $ ->
           $("body").className = ""
           $("body").addClass page
           #Clear contents of previous page
-          $('#two').delay(800).queue (n) ->
-            $(this).html("")
-            n()
+          empty_contents ('#two')
       else
         # If homepage or invalid page
         $('.site-header').css top: '52px'
