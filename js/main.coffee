@@ -18,6 +18,13 @@ $ ->
     $(element).delay(800).queue (n) ->
     $(this).html("")
     n()
+
+  transition_for_normal_page = ->
+    $('#one').addClass 'active'
+    $('#bg-' + page[1]).addClass 'active-effect'
+    $('.site-header').css top: '0px'
+    $('#home-nav').css display: 'none'
+    $('#top-nav').delay(1300).fadeIn 10
     
   #Make sure content is visible if page is not the homepage
   page = page_name()
@@ -26,14 +33,9 @@ $ ->
       # Put the new content into hidden div     
       $('#three').html $('#one').html()
       $('#three').addClass 'active'
-
       $('#one').html ""
-    
-    $('#one').addClass 'active'
-    $('#bg-' + page[1]).addClass 'active-effect'
-    $('.site-header').css top: '0px'
-    $('#home-nav').css display: 'none'
-    $('#top-nav').delay(1300).fadeIn 10
+     
+    transition_for_normal_page()
 
     
 
