@@ -15,9 +15,8 @@ $ ->
     (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/")
 
   empty_contents = (element) -> #clear contents of element with delay
-    $(element).delay(800).queue (n) ->
-    $(this).html("")
-    n()
+    $(element).delay(800).queue ->
+    $(this).html("") 
 
   transition_to_normal_page = ->
     $('#one').addClass 'active'
@@ -28,19 +27,26 @@ $ ->
     $('.bg').removeClass 'active-effect'
     $("body").className = ""
     $("body").addClass page
+
+  transition_to_home_page = ->
+    $('.site-header').css top: '52px'
+    $('.page').removeClass 'active'
+    $('.bg').removeClass 'active-effect'
+    $('#home-nav').delay(900).fadeIn 10
+    $('#top-nav').fadeOut 10
+    $("body").className = ""
+    $("body").addClass "home"
     
-  #Make sure content is visible if page is not the homepage
+  #Normal page load here
   page = page_name()
   if page
     if is_post(page)
       # Put the new content into hidden div     
       $('#three').html $('#one').html()
       $('#three').addClass 'active'
-      $('#one').html ""
+      empty_contents('#one')
      
     transition_to_normal_page()
-
-    
 
   #Background hover effects      
 {% for page in site.pages %}
@@ -51,8 +57,7 @@ $ ->
   {% endif %}
 {% endfor %}
 
-
-  #Ajax page load, modified from http://www.builtinbruges.com/2014/08/using-ajax-content-in-jekyll-updated-for-universal-analytics/
+  #Ajax page transitions start here, modified from http://www.builtinbruges.com/2014/08/using-ajax-content-in-jekyll-updated-for-universal-analytics/
   siteUrl = 'http://'+(document.location.hostname||document.location.host)
 
   $(document).delegate 'a[href^="/"],a[href^="' + siteUrl + '"]', 'click', (e) ->
@@ -69,50 +74,30 @@ $ ->
       
       page = page_name()
       if page # If valid page or not homepage
-  
-        if is_post(page)
-      
+        if is_post(page)      
           # Put the new content into hidden div
           $('#three').html $(data).find('#one').html()
           $('#three').addClass 'active'
-          #Clear contents of previous page after the transition effect
-          empty_contents ('#one')
-          
-          
+          empty_contents ('#one')      
         else if (page[1] == "work" || "blog") && $('#three').hasClass('active') #if moving to the blog/work index from post/work item
           $('#one').html $(data).find('#one').html()
           $('#three').removeClass 'active'
-
         else
           $('#three').removeClass 'active'
           # Put the new content into hidden div
-          $('#two').html $(data).find('#one').html()
-          
+          $('#two').html $(data).find('#one').html()       
           if $('#one').hasClass('active') # If a page is active already then toggle active and hidden divs
             $('#one').toggleClass 'active'
             $('#two').toggleClass 'active'
           else
-            $('#two').addClass 'active'
-          # Swap the div ids 
+            $('#two').addClass 'active'     
           swap_div_ids('one', 'two')
-          # Transition effects
           transition_to_normal_page()
-          #Clear contents of previous page
           empty_contents ('#two')
-      else
-        # If homepage or invalid page
-        $('.site-header').css top: '52px'
-        $('.page').removeClass 'active'
-        $('.bg').removeClass 'active-effect'
-        $('#home-nav').delay(900).fadeIn 10
-        $('#top-nav').fadeOut 10
-        $("body").className = ""
-        $("body").addClass "home"
-        #Clear contents of previous page
-        $('#two').delay(800).queue (n) ->
-          $(this).html("")
-          $('#one').html("")
-          n()
+      else # If homepage or invalid page
+        transition_to_home_page()
+        empty_contents('one')
+        empty_contents('two')
 
 
 
