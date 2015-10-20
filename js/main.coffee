@@ -2,23 +2,27 @@
 ---
 $ ->
 
-  page_name = -> #Get the name of the page
+  pageName = -> #Get the name of the page
     re = new RegExp("{{ site.baseurl }}\\/?([\\w\\-\\.]+)\\/?")
     return re.exec(location.pathname)
 
-  swap_div_ids = (a,b) -> #swap the ids of two divs
+  swapDivs = (a,b) -> #swap the ids of two divs
     $("#"+a).attr 'id', 'temp'
     $("#"+b).attr 'id', a
     $('#temp').attr 'id', b
 
-  is_post = (page) ->
-    (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/")
+  isPost = (page) ->
+    (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || 
+    (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/")
 
-  empty_contents = (element) -> #clear contents of element with delay
+  isParent = (page) ->
+    (page[1] == "work" || "blog") && $('#three').hasClass('active')
+
+  emptyContents = (element) -> #clear contents of element with delay
     $(element).delay(800).queue ->
     $(this).html("") 
 
-  transition_to_normal_page = ->
+  transitionToNormalPage = ->
     $('#one').addClass 'active'
     $('#bg-' + page[1]).addClass 'active-effect'
     $('.site-header').css top: '0px'
@@ -28,7 +32,7 @@ $ ->
     $("body").className = ""
     $("body").addClass page
 
-  transition_to_home_page = ->
+  transitionToHomePage = ->
     $('.site-header').css top: '52px'
     $('.page').removeClass 'active'
     $('.bg').removeClass 'active-effect'
@@ -36,17 +40,44 @@ $ ->
     $('#top-nav').fadeOut 10
     $("body").className = ""
     $("body").addClass "home"
+
+  pageLogic = (data) ->
+    if page # If valid page or not homepage
+      if isPost(page)      
+         # Put the new content into hidden div
+         $('#three').html $(data).find('#one').html()
+         $('#three').addClass 'active'
+         emptyContents ('#one')      
+       else if isParent(page)  #if is parent of post
+         $('#one').html $(data).find('#one').html()
+         $('#three').removeClass 'active'
+       else
+         $('#three').removeClass 'active'
+         # Put the new content into hidden div
+         $('#two').html $(data).find('#one').html()       
+         if $('#one').hasClass('active') # If a page is active already then toggle active and hidden divs
+           $('#one').toggleClass 'active'
+           $('#two').toggleClass 'active'
+         else
+           $('#two').addClass 'active'     
+         swapDivs('one', 'two')
+         transitionToNormalPage()
+         emptyContents ('#two')
+     else # If homepage or invalid page
+       transitionToHomePage()
+       emptyContents('one')
+       emptyContents('two')
     
   #Normal page load here
-  page = page_name()
+  page = pageName()
   if page
-    if is_post(page)
+    if isPost(page)
       # Put the new content into hidden div     
       $('#three').html $('#one').html()
       $('#three').addClass 'active'
-      empty_contents('#one')
+      emptyContents('#one')
      
-    transition_to_normal_page()
+    transitionToNormalPage()
 
   #Background hover effects      
 {% for page in site.pages %}
@@ -66,38 +97,13 @@ $ ->
 
   # Catch all History stateChange events
   History.Adapter.bind window, 'statechange', ->
-    State = History.getState()
+    state = History.getState()
     # Load the new state's URL via an Ajax Call
-    $.get State.url, (data) ->
+    $.get state.url, (data) ->
       # Replace the "<title>" tag's content
-      document.title = $(data).find('title').text()
-      
-      page = page_name()
-      if page # If valid page or not homepage
-        if is_post(page)      
-          # Put the new content into hidden div
-          $('#three').html $(data).find('#one').html()
-          $('#three').addClass 'active'
-          empty_contents ('#one')      
-        else if (page[1] == "work" || "blog") && $('#three').hasClass('active') #if moving to the blog/work index from post/work item
-          $('#one').html $(data).find('#one').html()
-          $('#three').removeClass 'active'
-        else
-          $('#three').removeClass 'active'
-          # Put the new content into hidden div
-          $('#two').html $(data).find('#one').html()       
-          if $('#one').hasClass('active') # If a page is active already then toggle active and hidden divs
-            $('#one').toggleClass 'active'
-            $('#two').toggleClass 'active'
-          else
-            $('#two').addClass 'active'     
-          swap_div_ids('one', 'two')
-          transition_to_normal_page()
-          empty_contents ('#two')
-      else # If homepage or invalid page
-        transition_to_home_page()
-        empty_contents('one')
-        empty_contents('two')
+      document.title = $(data).find('title').text()     
+      page = pageName()
+      pageLogic(data)
 
 
 
