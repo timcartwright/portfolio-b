@@ -2,11 +2,18 @@
 ---
 $ ->
 
-  #Get the name of the page
-  re = new RegExp("{{ site.baseurl }}\\/?([\\w\\-\\.]+)\\/?")
-  page = re.exec(location.pathname)
+  page_name = ->
+    #Get the name of the page
+    re = new RegExp("{{ site.baseurl }}\\/?([\\w\\-\\.]+)\\/?")
+    return re.exec(location.pathname)
 
+  swap_div_ids = (a,b) ->
+    $("#"+a).attr 'id', 'temp'
+    $("#"+b).attr 'id', a
+    $('#temp').attr 'id', b
+    
   #Make sure content is visible if page is not the homepage
+  page = page_name()
   if page
     if (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/")
       # Put the new content into hidden div     
@@ -47,10 +54,8 @@ $ ->
     $.get State.url, (data) ->
       # Replace the "<title>" tag's content
       document.title = $(data).find('title').text()
-      # Get the first element of the pathname
-      re = new RegExp("{{ site.baseurl }}\\/?([\\w\\-\\.]+)\\/?")
-      page = re.exec(location.pathname)
       
+      page = page_name()
       if page # If valid page or not homepage
         console.log(page[1])
         if (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/") #if blog post or work item
@@ -78,9 +83,7 @@ $ ->
           else
             $('#two').addClass 'active'
           # Swap the div ids 
-          $('#one').attr 'id', 'temp'
-          $('#two').attr 'id', 'one'
-          $('#temp').attr 'id', 'two'
+          swap_div_ids('one', 'two')
           # Transition effects
           $('.bg').removeClass 'active-effect'
           $('#bg-' + page[1]).addClass 'active-effect'
