@@ -3,11 +3,13 @@
   
 </div>
 
+
 {% for page in site.pages %}
 	{% if page.position %}
 		<div class="bg bg-{{ page.title | downcase }}" id="bg-{{ page.title | downcase }}"></div>
 	{% endif %}
 {% endfor %}
+
 
 
 <div id="overlay" class="bcolour">

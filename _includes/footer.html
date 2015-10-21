@@ -1,7 +1,11 @@
 <footer class="site-footer">
 	<nav id="home-nav">
 		<ul>
-			{% include links.html %}
+			{% for page in pages %}
+				{% if page.position %}
+					<li><a class="{{ page.title | downcase }}" href="{{ page.permalink | prepend: site.baseurl }}"><i class="icon-{{ page.icon }}"></i><h3>{{ page.title }}</h3></a></li>
+				{% endif %}
+				{% endfor %}
 		</ul>
 	</nav>
 </footer>

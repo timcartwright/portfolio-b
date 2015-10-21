@@ -28,7 +28,7 @@ nav {
 
     li {
       display: inline-block;
-      padding: 0 1em;
+      padding: 0 1vw;
       font-size: 1.333em;
       line-height: 2;
       text-transform: lowercase;
@@ -74,12 +74,12 @@ a {
 	}
 }
 
-.page-heading {
+.page-heading, .section-heading {
   text-align: center;
 }
 
 .hover-effect {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .active-effect {
