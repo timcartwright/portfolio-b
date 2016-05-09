@@ -11,6 +11,10 @@
 	div {
 		@include vertical-center;
 		top: 30vh;
+
+		h1 {
+			font-size: 1em;
+		}
 	}
 }
 
