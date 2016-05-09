@@ -11,18 +11,18 @@ $ ->
     $("#"+b).attr 'id', a
     $('#temp').attr 'id', b
 
-  isPost = (page) ->
+  isPost = (page) -> #is the page a post or work item?
     (page[1] == "work" && location.pathname != "{{ site.baseurl }}work/") || 
     (page[1] == "blog" && location.pathname != "{{ site.baseurl }}blog/")
 
-  isParent = (page) ->
+  isParent = (page) -> #are we moving from a post to it's parent?
     (page[1] == "work" || "blog") && $('#three').hasClass('active')
 
   emptyContents = (element) -> #clear contents of element with delay
     $(element).delay(800).queue ->
     $(this).html("") 
 
-  transitionToNormalPage = ->
+  transitionToNormalPage = -> #animate page transitions
     $('#one').addClass 'active'
     $('#bg-' + page[1]).addClass 'active-effect'
     $('.site-header').css top: '0px'
@@ -32,7 +32,7 @@ $ ->
     $("body").className = ""
     $("body").addClass page
 
-  transitionToHomePage = ->
+  transitionToHomePage = -> #animate page transition to home
     $('.site-header').css top: '52px'
     $('.page').removeClass 'active'
     $('.bg').removeClass 'active-effect'

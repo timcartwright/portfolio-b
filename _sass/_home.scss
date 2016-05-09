@@ -1,12 +1,17 @@
 .me-in-the-middle {
-	max-width: 1120px;
-	height: 100vh;
-	margin: 0 auto;
+	width: 100%;
+	height: 80vh;
+	margin-top: 20vh;
 	text-align: center;
-	font-size: 6em;
+	font-size: 3em;
 	font-weight: 300;
 	color: $white;
-	@include vertical-center;
+	position: absolute;
+
+	div {
+		@include vertical-center;
+		top: 30vh;
+	}
 }
 
 .site-footer {
