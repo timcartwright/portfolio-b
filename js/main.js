@@ -3,7 +3,7 @@
     var emptyContents, isParent, isPost, page, pageLogic, pageName, siteUrl, swapDivs, transitionToHomePage, transitionToNormalPage;
     pageName = function() {
       var re;
-      re = new RegExp("/portfolio-b/\\/?([\\w\\-\\.]+)\\/?");
+      re = new RegExp("/\\/?([\\w\\-\\.]+)\\/?");
       return re.exec(location.pathname);
     };
     swapDivs = function(a, b) {
@@ -12,7 +12,7 @@
       return $('#temp').attr('id', b);
     };
     isPost = function(page) {
-      return (page[1] === "work" && location.pathname !== "/portfolio-b/work/") || (page[1] === "blog" && location.pathname !== "/portfolio-b/blog/");
+      return (page[1] === "work" && location.pathname !== "/work/") || (page[1] === "blog" && location.pathname !== "/blog/");
     };
     isParent = function(page) {
       return (page[1] === "work" || "blog") && $('#three').hasClass('active');
