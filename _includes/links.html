@@ -2,6 +2,6 @@
 
 {% for page in pages %}
 	{% if page.position %}
-				<li><h3><a class="{{ page.title | downcase }}" href="{{ page.permalink }}">{{ page.title }}</a></h3></li>
+				<li><h3><a class="{{ page.title | downcase }}" href="{{ page.permalink | prepend: site.baseurl }}">{{ page.title }}</a></h3></li>
 	{% endif %}
 {% endfor %}
