@@ -1,9 +1,9 @@
 # Site settings
-title: Tim Cartwright - Web Developer
-email: tim@websitesbytim.com
-description: > # Tim Cartwright is a freelance, full stack web developer
+title: Web Developer in London
+email: tim@teasea.uk
+description: > # Tim Cartwright is a full stack web developer from London
 baseurl: "/portfolio-b/" # the subpath of your site, e.g. /blog/
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+url: "http://teasea.uk" # the base hostname & protocol for your site
 twitter_username: 
 github_username:  timcartwright
 permalink: :categories/:title
