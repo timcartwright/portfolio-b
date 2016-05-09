@@ -2,7 +2,7 @@
 title: Web Developer in London
 email: tim@teasea.uk
 description: > # Tim Cartwright is a full stack web developer from London
-baseurl: "/" # the subpath of your site, e.g. /blog/
+baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://teasea.uk" # the base hostname & protocol for your site
 twitter_username: 
 github_username:  timcartwright
